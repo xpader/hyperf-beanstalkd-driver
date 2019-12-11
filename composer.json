@@ -3,7 +3,8 @@
     "description": "Hyperf AsyncQueue Beanstalkd driver.",
     "type": "library",
     "require": {
-        "hyperf/hyperf": "^1.1"
+        "hyperf/hyperf": "^1.1",
+        "pader/swbeanstalk": "dev-master"
     },
     "license": "BSD-2",
     "authors": [
