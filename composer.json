@@ -7,7 +7,7 @@
         "hyperf/async-queue": "^1.1",
         "pader/swbeanstalk": "^1.0"
     },
-    "license": "BSD-2",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "Pader",
