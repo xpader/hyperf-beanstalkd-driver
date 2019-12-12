@@ -3,6 +3,7 @@
     "description": "Hyperf AsyncQueue Beanstalkd driver.",
     "type": "library",
     "require": {
+        "php": ">=7.0",
         "pader/swbeanstalk": "dev-master",
         "hyperf/async-queue": "^1.1"
     },
