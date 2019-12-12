@@ -3,8 +3,8 @@
     "description": "Hyperf AsyncQueue Beanstalkd driver.",
     "type": "library",
     "require": {
-        "hyperf/hyperf": "^1.1",
-        "pader/swbeanstalk": "dev-master"
+        "pader/swbeanstalk": "dev-master",
+        "hyperf/async-queue": "^1.1"
     },
     "license": "BSD-2",
     "authors": [
@@ -12,5 +12,10 @@
             "name": "Pader",
             "email": "ypnow@163.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "pader\\HyperfBeanstalkdDriver\\": "src/"
+        }
+    }
 }
