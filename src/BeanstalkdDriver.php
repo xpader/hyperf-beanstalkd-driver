@@ -16,14 +16,14 @@ use Hyperf\AsyncQueue\Exception\InvalidQueueException;
 use Hyperf\AsyncQueue\JobInterface;
 use Hyperf\AsyncQueue\Message;
 use Hyperf\AsyncQueue\MessageInterface;
-use pader\swbeanstalk\Client;
+use pader\swbeanstalk\Swbeanstalk;
 use Psr\Container\ContainerInterface;
 
 class BeanstalkdDriver extends \Hyperf\AsyncQueue\Driver\Driver
 {
 
 	/**
-	 * @var Client
+	 * @var Swbeanstalk
 	 */
 	protected $client;
 
@@ -54,9 +54,10 @@ class BeanstalkdDriver extends \Hyperf\AsyncQueue\Driver\Driver
 	{
 		parent::__construct($container, $config);
 
-		$client = new Client(
+		$client = new Swbeanstalk(
 			env('BEANSTALKD_HOST', '127.0.0.1'),
 			env('BEANSTALKD_PORT', 11300),
+			env('BEANSTALKD_CONNECT_TIMEOUT', 1),
 			env('BEANSTALKD_TIMEOUT', -1)
 		);
 
@@ -88,7 +89,7 @@ class BeanstalkdDriver extends \Hyperf\AsyncQueue\Driver\Driver
 		$message = new Message($job);
 		$data = $this->packer->pack($message);
 
-		return (bool)$this->client->put($data, Client::DEFAULT_PRI, $delay, $this->handleTimeout);
+		return (bool)$this->client->put($data, Swbeanstalk::DEFAULT_PRI, $delay, $this->handleTimeout);
 	}
 
 	public function delete(JobInterface $job): bool
@@ -219,7 +220,7 @@ class BeanstalkdDriver extends \Hyperf\AsyncQueue\Driver\Driver
 	protected function release($id, $message) {
 		$this->connect();
 		$delay = time() + $this->getRetrySeconds($message->getAttempts());
-		return $this->client->release($id, Client::DEFAULT_PRI, $delay);
+		return $this->client->release($id, Swbeanstalk::DEFAULT_PRI, $delay);
 	}
 
 	protected function getRetrySeconds(int $attempts): int
