@@ -5,7 +5,7 @@
     "require": {
         "php": ">=7.0",
         "hyperf/async-queue": "^1.1",
-        "pader/swbeanstalk": "^1.0.1"
+        "pader/swbeanstalk": "^1.0.2"
     },
     "license": "BSD-2-Clause",
     "authors": [
